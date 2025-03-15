@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:33:35 by nbougrin          #+#    #+#             */
-/*   Updated: 2025/03/04 16:52:11 by nbougrin         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:15:12 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,27 @@
 
 int	ft_atoi(const char *str)
 {
-	int		sign;
+	long	sign;
 	long	num;
-	long	tmp;
 
 	sign = 1;
 	num = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '+' || *str == '-')
+	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign = -1;
 		str++;
 	}
+	else if (*str == '-' || *str == '+')
+		return (-1);
 	while (*str >= '0' && *str <= '9')
 	{
-		tmp = num;
-		num = (num * 10) + (*str - 48);
-		if (tmp != num / 10 && sign == 1)
+		num = (num * 10) + (*str - '0');
+		if ((num * sign) > 2147483647 || (num * sign) <= 0 )
 			return (-1);
-		else if (tmp != num / 10 && sign == -1)
-			return (0);
 		str++;
 	}
-	return (sign * (int)num);
+	return (sign * num);
 }
 
 void	ft_send_signal(int pid, char c)
@@ -63,9 +59,9 @@ int	main(int ac, char **av)
 	int		i;
 	pid_t	pid;
 
-	if (ac != 3 || ft_atoi(av[1]) == 0)
+	if (ac != 3 || ft_atoi(av[1]) <= 0)
 	{
-		ft_printf ("\nInput not valid\nEnter pid and comment\n");
+		ft_printf ("Input not valid\nEnter pid and comment\n");
 		return (0);
 	}
 	i = 0;

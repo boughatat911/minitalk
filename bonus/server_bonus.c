@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:33:42 by nbougrin          #+#    #+#             */
-/*   Updated: 2025/03/14 01:33:50 by nbougrin         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:19:19 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int	ft_checkunicode(unsigned char c)
 {
-		// 0x80 - 0xBF → Used only as continuation bytes (never start a character).
-		// 0xC0 - 0xDF → Start of 2-byte UTF-8 characters.
-		// 0xE0 - 0xEF → Start of 3-byte UTF-8 characters.
-		// 0xF0 - 0xF7 → Start of 4-byte UTF-8 characters.
-		// 0xF8 - 0xFF → Invalid in UTF-8, reserved for future use.
+	// 0x80 - 0xBF → Used only as continuation bytes (never start a character).
+	// 0xC0 - 0xDF → Start of 2-byte UTF-8 characters.
+	// 0xE0 - 0xEF → Start of 3-byte UTF-8 characters.
+	// 0xF0 - 0xF7 → Start of 4-byte UTF-8 characters.
+	// 0xF8 - 0xFF → Invalid in UTF-8, reserved for future use.
 	if (c < 0x80) // 0x80 == 128
 		return (1);
 	else if ((c & 0xe0) == 0xc0) // 0xe0 == 224 || 0xc0 == 192 || 
@@ -59,7 +59,7 @@ int	print(int *counter, char *result, int *pid, int *index)
 	return (0);
 }
 
-void	signal_handle(int signum, siginfo_t *info, void *vd)
+void	signal_handle(int signum, siginfo_t *info, void *vd)//// testi ila hydan vd
 {
 	static int			counter;
 	static char			result;
@@ -67,7 +67,7 @@ void	signal_handle(int signum, siginfo_t *info, void *vd)
 	static int			index;
 
 	(void)vd;
-	if (info->si_pid != pid)
+	if (info->si_pid != pid)/////////hena fin wsalt 
 	{
 		pid = info->si_pid;
 		counter = 0;
@@ -84,7 +84,7 @@ int	main(void)
 {
 	struct sigaction	ssignal;
 
-	ft_printf("\n Server pid ==>  %d\n", getpid());
+	ft_printf("Server pid ==>  %d\n", getpid());
 	ssignal.sa_sigaction = signal_handle;
 	ssignal.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &ssignal, 0);

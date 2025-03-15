@@ -6,7 +6,7 @@
 /*   By: nbougrin <nbougrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:33:32 by nbougrin          #+#    #+#             */
-/*   Updated: 2025/03/04 16:02:29 by nbougrin         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:18:44 by nbougrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(void)
 {
 	struct sigaction	ssignal;
 
-	ft_printf("\n Server PID →  \t%d\n", getpid());
+	ft_printf("Server PID →  %d\n", getpid());
 	ssignal.sa_sigaction = signal_handl;
 	ssignal.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &ssignal, 0);
